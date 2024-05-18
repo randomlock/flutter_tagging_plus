@@ -378,11 +378,7 @@ class SuggestionsBoxConfiguration {
   /// The decoration of the material sheet that contains the suggestions.
   ///
   /// If null, default decoration with an elevation of 4.0 is used
-  final SuggestionsBoxDecoration suggestionsBoxDecoration;
 
-  /// Used to control the `_SuggestionsBox`. Allows manual control to
-  /// open, close, toggle, or resize the `_SuggestionsBox`.
-  final SuggestionsBoxController? suggestionsBoxController;
 
   /// Determine the [SuggestionBox]'s direction.
   ///
@@ -402,8 +398,6 @@ class SuggestionsBoxConfiguration {
     this.hideSuggestionsOnKeyboardHide = true,
     this.keepSuggestionsOnLoading = true,
     this.keepSuggestionsOnSuggestionSelected = false,
-    this.suggestionsBoxController,
-    this.suggestionsBoxDecoration = const SuggestionsBoxDecoration(),
     this.suggestionsBoxVerticalOffset = 5.0,
   });
 }

@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.all(8.0),
             child: FlutterTagging<Language>(
               initialItems: _selectedLanguages,
-              textFieldConfiguration: TextFieldConfiguration(
+              textFieldConfiguration: TextField(
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   filled: true,

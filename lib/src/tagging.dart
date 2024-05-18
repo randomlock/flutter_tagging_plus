@@ -17,7 +17,7 @@ class FlutterTagging<T extends Taggable> extends StatefulWidget {
   final VoidCallback? onChanged;
 
   /// The configuration of the [TextField] that the [FlutterTagging] widget displays.
-  final TextFieldConfiguration textFieldConfiguration;
+  final TextField textFieldConfiguration;
 
   /// Called with the search pattern to get the search suggestions.
   ///
@@ -145,7 +145,7 @@ class FlutterTagging<T extends Taggable> extends StatefulWidget {
     this.loadingBuilder,
     this.emptyBuilder,
     this.wrapConfiguration = const WrapConfiguration(),
-    this.textFieldConfiguration = const TextFieldConfiguration(),
+    this.textFieldConfiguration = const TextField(),
     this.suggestionsBoxConfiguration = const SuggestionsBoxConfiguration(),
     this.transitionBuilder,
     this.debounceDuration = const Duration(milliseconds: 300),
@@ -189,42 +189,80 @@ class _FlutterTaggingState<T extends Taggable>
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         TypeAheadField<T>(
-          getImmediateSuggestions: widget.enableImmediateSuggestion,
+          builder: (context, controller, focusNode) {
+            return TextField(
+              controller: controller,
+              focusNode: focusNode,
+              decoration: widget.textFieldConfiguration.decoration,
+              keyboardType: widget.textFieldConfiguration.keyboardType,
+              textInputAction: widget.textFieldConfiguration.textInputAction,
+              textCapitalization:
+                  widget.textFieldConfiguration.textCapitalization,
+              style: widget.textFieldConfiguration.style,
+              strutStyle: widget.textFieldConfiguration.strutStyle,
+              textAlign: widget.textFieldConfiguration.textAlign,
+              textAlignVertical:
+                  widget.textFieldConfiguration.textAlignVertical,
+              textDirection: widget.textFieldConfiguration.textDirection,
+              readOnly: widget.textFieldConfiguration.readOnly,
+              toolbarOptions: widget.textFieldConfiguration.toolbarOptions,
+              showCursor: widget.textFieldConfiguration.showCursor,
+              autofocus: widget.textFieldConfiguration.autofocus,
+              obscuringCharacter:
+                  widget.textFieldConfiguration.obscuringCharacter,
+              obscureText: widget.textFieldConfiguration.obscureText,
+              autocorrect: widget.textFieldConfiguration.autocorrect,
+              smartDashesType: widget.textFieldConfiguration.smartDashesType,
+              smartQuotesType: widget.textFieldConfiguration.smartQuotesType,
+              enableSuggestions:
+                  widget.textFieldConfiguration.enableSuggestions,
+              maxLines: widget.textFieldConfiguration.maxLines,
+              minLines: widget.textFieldConfiguration.minLines,
+              expands: widget.textFieldConfiguration.expands,
+              maxLength: widget.textFieldConfiguration.maxLength,
+              maxLengthEnforcement:
+                  widget.textFieldConfiguration.maxLengthEnforcement,
+              onChanged: widget.textFieldConfiguration.onChanged,
+              onEditingComplete:
+                  widget.textFieldConfiguration.onEditingComplete,
+              onSubmitted: widget.textFieldConfiguration.onSubmitted,
+              inputFormatters: widget.textFieldConfiguration.inputFormatters,
+              enabled: widget.textFieldConfiguration.enabled,
+              cursorWidth: widget.textFieldConfiguration.cursorWidth,
+              cursorHeight: widget.textFieldConfiguration.cursorHeight,
+              cursorRadius: widget.textFieldConfiguration.cursorRadius,
+              cursorColor: widget.textFieldConfiguration.cursorColor,
+              selectionHeightStyle:
+                  widget.textFieldConfiguration.selectionHeightStyle,
+              selectionWidthStyle:
+                  widget.textFieldConfiguration.selectionWidthStyle,
+              keyboardAppearance:
+                  widget.textFieldConfiguration.keyboardAppearance,
+              scrollPadding: widget.textFieldConfiguration.scrollPadding,
+              dragStartBehavior:
+                  widget.textFieldConfiguration.dragStartBehavior,
+              enableInteractiveSelection:
+                  widget.textFieldConfiguration.enableInteractiveSelection,
+              onTap: widget.textFieldConfiguration.onTap,
+              buildCounter: widget.textFieldConfiguration.buildCounter,
+              scrollController: widget.textFieldConfiguration.scrollController,
+              scrollPhysics: widget.textFieldConfiguration.scrollPhysics,
+              autofillHints: widget.textFieldConfiguration.autofillHints);
+          },
           debounceDuration: widget.debounceDuration,
           hideOnEmpty: widget.hideOnEmpty,
           hideOnError: widget.hideOnError,
           hideOnLoading: widget.hideOnLoading,
-          animationStart: widget.animationStart,
           animationDuration: widget.animationDuration,
           autoFlipDirection:
               widget.suggestionsBoxConfiguration.autoFlipDirection,
-          direction: widget.suggestionsBoxConfiguration.direction,
-          hideSuggestionsOnKeyboardHide:
-              widget.suggestionsBoxConfiguration.hideSuggestionsOnKeyboardHide,
-          keepSuggestionsOnLoading:
-              widget.suggestionsBoxConfiguration.keepSuggestionsOnLoading,
-          keepSuggestionsOnSuggestionSelected: widget
-              .suggestionsBoxConfiguration.keepSuggestionsOnSuggestionSelected,
-          suggestionsBoxController:
-              widget.suggestionsBoxConfiguration.suggestionsBoxController,
-          suggestionsBoxDecoration:
-              widget.suggestionsBoxConfiguration.suggestionsBoxDecoration,
-          suggestionsBoxVerticalOffset:
-              widget.suggestionsBoxConfiguration.suggestionsBoxVerticalOffset,
           errorBuilder: widget.errorBuilder,
-          transitionBuilder: widget.transitionBuilder,
           loadingBuilder: (context) =>
               widget.loadingBuilder?.call(context) ??
               SizedBox(
                 height: 3.0,
                 child: LinearProgressIndicator(),
               ),
-          noItemsFoundBuilder: widget.emptyBuilder,
-          textFieldConfiguration: widget.textFieldConfiguration.copyWith(
-            focusNode: _focusNode,
-            controller: _textController,
-            enabled: widget.textFieldConfiguration.enabled,
-          ),
           suggestionsCallback: (query) async {
             final suggestions = await widget.findSuggestions(query);
             suggestions.removeWhere(widget.initialItems.contains);
@@ -274,7 +312,7 @@ class _FlutterTaggingState<T extends Taggable>
               ),
             );
           },
-          onSuggestionSelected: (suggestion) {
+          onSelected: (suggestion) {
             if (_additionItem != suggestion) {
               widget.initialItems.add(suggestion);
               setState(() {});
