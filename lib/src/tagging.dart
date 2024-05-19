@@ -263,6 +263,9 @@ class _FlutterTaggingState<T extends Taggable>
                 height: 3.0,
                 child: LinearProgressIndicator(),
               ),
+          hideOnSelect: !widget.suggestionsBoxConfiguration.keepSuggestionsOnSuggestionSelected,
+          hideWithKeyboard: widget.suggestionsBoxConfiguration.hideSuggestionsOnKeyboardHide,
+          retainOnLoading: widget.suggestionsBoxConfiguration.keepSuggestionsOnLoading,
           suggestionsCallback: (query) async {
             final suggestions = await widget.findSuggestions(query);
             suggestions.removeWhere(widget.initialItems.contains);
