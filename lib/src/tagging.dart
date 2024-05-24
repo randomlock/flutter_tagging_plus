@@ -189,6 +189,8 @@ class _FlutterTaggingState<T extends Taggable>
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         TypeAheadField<T>(
+          controller: _textController,
+          focusNode: _focusNode,
           builder: (context, controller, focusNode) {
             return TextField(
               controller: controller,

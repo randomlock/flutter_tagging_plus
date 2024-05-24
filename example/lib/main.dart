@@ -76,6 +76,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 // api calls here, triggered when add to tag button is pressed
                 return Language(name: language.name, position: -1);
               },
+              suggestionsBoxConfiguration: SuggestionsBoxConfiguration(
+                hideSuggestionsOnKeyboardHide: true,
+                keepSuggestionsOnSuggestionSelected: false,
+
+              ),
               configureSuggestion: (lang) {
                 return SuggestionConfiguration(
                   title: Text(lang.name),

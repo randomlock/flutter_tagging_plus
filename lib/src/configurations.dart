@@ -375,10 +375,6 @@ class SuggestionsBoxConfiguration {
   /// Defaults to 5.0
   final double suggestionsBoxVerticalOffset;
 
-  /// The decoration of the material sheet that contains the suggestions.
-  ///
-  /// If null, default decoration with an elevation of 4.0 is used
-
 
   /// Determine the [SuggestionBox]'s direction.
   ///
