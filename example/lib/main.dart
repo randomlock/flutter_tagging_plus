@@ -81,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 keepSuggestionsOnSuggestionSelected: false,
 
               ),
+              isSingleItem: true,
               configureSuggestion: (lang) {
                 return SuggestionConfiguration(
                   title: Text(lang.name),

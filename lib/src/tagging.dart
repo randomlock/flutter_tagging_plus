@@ -132,6 +132,8 @@ class FlutterTagging<T extends Taggable> extends StatefulWidget {
   ///
   final List<T> initialItems;
 
+  final bool isSingleItem;
+
   /// Creates a [FlutterTagging] widget.
   FlutterTagging({
     required this.initialItems,
@@ -155,6 +157,7 @@ class FlutterTagging<T extends Taggable> extends StatefulWidget {
     this.animationDuration = const Duration(milliseconds: 500),
     this.animationStart = 0.25,
     this.onAdded,
+    this.isSingleItem = false,
   });
 
   @override
@@ -296,8 +299,15 @@ class _FlutterTaggingState<T extends Taggable>
                 onTap: () async {
                   if (widget.onAdded != null) {
                     final _item = await widget.onAdded!(item);
+
+                    if (widget.isSingleItem) {
+                      widget.initialItems.clear();
+                    }
                     widget.initialItems.add(_item);
                   } else {
+                    if (widget.isSingleItem) {
+                      widget.initialItems.clear();
+                    }
                     widget.initialItems.add(item);
                   }
                   setState(() {});
@@ -319,6 +329,10 @@ class _FlutterTaggingState<T extends Taggable>
           },
           onSelected: (suggestion) {
             if (_additionItem != suggestion) {
+
+              if (widget.isSingleItem) {
+                widget.initialItems.clear();
+              }
               widget.initialItems.add(suggestion);
               setState(() {});
               widget.onChanged?.call();
