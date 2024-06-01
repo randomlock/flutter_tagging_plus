@@ -194,6 +194,7 @@ class _FlutterTaggingState<T extends Taggable>
         TypeAheadField<T>(
           controller: _textController,
           focusNode: _focusNode,
+
           builder: (context, controller, focusNode) {
             return TextField(
               controller: controller,
@@ -256,6 +257,7 @@ class _FlutterTaggingState<T extends Taggable>
           },
           debounceDuration: widget.debounceDuration,
           hideOnEmpty: widget.hideOnEmpty,
+          emptyBuilder: widget.emptyBuilder,
           hideOnError: widget.hideOnError,
           hideOnLoading: widget.hideOnLoading,
           animationDuration: widget.animationDuration,
