@@ -194,7 +194,6 @@ class _FlutterTaggingState<T extends Taggable>
         TypeAheadField<T>(
           controller: _textController,
           focusNode: _focusNode,
-
           builder: (context, controller, focusNode) {
             return TextField(
               controller: controller,
@@ -331,14 +330,14 @@ class _FlutterTaggingState<T extends Taggable>
           },
           onSelected: (suggestion) {
             if (_additionItem != suggestion) {
-
               if (widget.isSingleItem) {
                 widget.initialItems.clear();
               }
-              widget.initialItems.add(suggestion);
-              setState(() {});
-              widget.onChanged?.call();
-              _textController.clear();
+              if (!widget.initialItems.contains(suggestion)) {
+                widget.initialItems.add(suggestion);
+                setState(() {});
+                widget.onChanged?.call();
+              }
             }
           },
         ),
