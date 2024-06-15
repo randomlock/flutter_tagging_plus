@@ -387,6 +387,14 @@ class SuggestionsBoxConfiguration {
   /// [AxisDirection.left] and [AxisDirection.right] are not allowed.
   final AxisDirection direction;
 
+
+
+  // Whether to refresh the suggestions when a suggestion is selected.
+  final bool refreshSuggestionsOnChipDeleted;
+
+  // Whether to refresh the suggestions when a suggestion is selected.
+  final bool refreshSuggestionOnSuggestionSelected;
+
   ///
   const SuggestionsBoxConfiguration({
     this.direction = AxisDirection.down,
@@ -395,5 +403,7 @@ class SuggestionsBoxConfiguration {
     this.keepSuggestionsOnLoading = true,
     this.keepSuggestionsOnSuggestionSelected = false,
     this.suggestionsBoxVerticalOffset = 5.0,
+    this.refreshSuggestionsOnChipDeleted = false,
+    this.refreshSuggestionOnSuggestionSelected = false,
   });
 }

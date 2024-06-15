@@ -169,6 +169,7 @@ class _FlutterTaggingState<T extends Taggable>
   late final TextEditingController _textController;
   late final FocusNode _focusNode;
   T? _additionItem;
+  final SuggestionsController<T> _suggestionsController = SuggestionsController();
 
   @override
   void initState() {
@@ -194,6 +195,7 @@ class _FlutterTaggingState<T extends Taggable>
         TypeAheadField<T>(
           controller: _textController,
           focusNode: _focusNode,
+          suggestionsController: _suggestionsController,
           builder: (context, controller, focusNode) {
             return TextField(
               controller: controller,
@@ -338,6 +340,9 @@ class _FlutterTaggingState<T extends Taggable>
                 setState(() {});
                 widget.onChanged?.call();
               }
+              if (widget.suggestionsBoxConfiguration.refreshSuggestionOnSuggestionSelected) {
+                _suggestionsController.refresh();
+              }
             }
           },
         ),
@@ -368,6 +373,9 @@ class _FlutterTaggingState<T extends Taggable>
               padding: conf.padding,
               shadowColor: conf.shadowColor,
               onDeleted: () {
+                if (widget.suggestionsBoxConfiguration.refreshSuggestionsOnChipDeleted) {
+                  _suggestionsController.refresh();
+                }
                 widget.initialItems.remove(item);
                 setState(() {});
                 widget.onChanged?.call();
